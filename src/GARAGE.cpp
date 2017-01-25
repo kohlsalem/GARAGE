@@ -30,7 +30,7 @@ const char* openhab_host = "192.168.178.38";
 
 int currentState = STATE_OPEN;
 unsigned long stateChagedTime = millis();
-int currentSensor = LOW; //initialoze to open. If it is actually closed on startup, it will update the state directly
+int currentSensor = HIGH; //initialoze to open. If it is actually closed on startup, it will update the state directly
 
 void pressButton(){
   digitalWrite(RELAIS,HIGH);
@@ -51,32 +51,31 @@ void updateState(int newState){
   stateChagedTime = millis();
 
   switch(currentState){
-    case STATE_OPEN:          value = "OPEN";    vlength = "4";
-    case STATE_CLOSING:       value = "CLOSING"; vlength = "7";
-    case STATE_CLOSING_RETRY: value = "RETRY";   vlength = "5";
-    case STATE_ERROR:         value = "ERROR";   vlength = "5";
-    case STATE_CLOSED:        value = "CLOSED";  vlength = "6";
-    case STATE_OPENING:       value = "OPENING"; vlength = "7";
+    case STATE_OPEN:          value = "OPEN";    vlength = "4"; break;
+    case STATE_CLOSING:       value = "CLOSING"; vlength = "7"; break;
+    case STATE_CLOSING_RETRY: value = "RETRY";   vlength = "5"; break;
+    case STATE_ERROR:         value = "ERROR";   vlength = "5"; break;
+    case STATE_CLOSED:        value = "CLOSED";  vlength = "6"; break;
+    case STATE_OPENING:       value = "OPENING"; vlength = "7"; break;
   }
 
 
   WiFiClient client; // Webclient initialisieren
-  if (!client.connect("openhab", 8080)) { // connect with openhab 8080
+  if (!client.connect(openhab_host, 8080)) { // connect with openhab 8080
     Serial.println("Fehler: Verbindung zur OH konnte nicht aufgebaut werden");
      delay(100);
     return;
   }
+  Serial.println("Sending"+value);
+  client.println("PUT /rest/items/Hoermann/state HTTP/1.1");
+  client.print("Host: ");
+  client.println(openhab_host);
+  client.println("Connection: close");
+  //client.println("Content-Type: application/x-www-form-urlencoded");
+  client.println("Content-Type: text/plain");
+  client.println("Content-Length: "+vlength+"\r\n");
+  client.print(value);
 
-  if (client.connect(openhab_host,80))
-  {
-    client.println("PUT /api/hueuser/lights/1/state HTTP/1.1");
-    client.print("Host: ");
-    client.println(openhab_host);
-     client.println("Connection: close");
-     client.println("Content-Type: application/x-www-form-urlencoded");
-     client.println("Content-Length: "+vlength+"\r\n");
-     client.print(value);
-  }
 }
 
 
@@ -105,11 +104,13 @@ void loop() {
   unsigned long stateChangeElapsed = millis()-stateChagedTime;
 
   newSensor = digitalRead(CONTACT);
-
-  if(currentSensor == LOW && newSensor == HIGH){
+/*  Serial.print(currentSensor);
+  Serial.print(" --> ");
+  Serial.println(newSensor);*/
+  if(currentSensor == HIGH && newSensor == LOW){
      // no matter what state: the door just closed.
      updateState(STATE_CLOSED);
-  } else if(currentSensor == HIGH && newSensor == LOW){
+  } else if(currentSensor == LOW && newSensor == HIGH){
      // no matter what state: the door is just opening
      updateState(STATE_OPENING);
   } else if( (currentState == STATE_OPENING)&&(stateChangeElapsed>RUN_TIMEOUT )) {
@@ -123,6 +124,7 @@ void loop() {
      // after 20 sec of retry still not work --> Error. Somebody messed around with the HW Button
      updateState(STATE_ERROR);
   }
+  currentSensor = newSensor;
   ArduinoOTA.handle();
   server.handleClient();
   delay(100);
