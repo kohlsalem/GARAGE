@@ -1,7 +1,6 @@
-#yet another H801 firmware
+#open/close garage door with Hoermann and Reed sensor via wemos + Relais shield
 
-* /?b=0 - off
-* /?b=100 - on
-* /color?r=40&g=55b=100 - guess
+* /open
+* /close
 
 if you want to copy this - have fun :-)
