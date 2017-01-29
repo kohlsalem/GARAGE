@@ -4,7 +4,7 @@ I'm a proud owner of a gararage with a electric door powered by a [ProMatic](htt
 
 With the Wemos app this solution is fairly good. For integration into a home automation i do have one additional requirement: I want to have specific buttons for opening and closing. 
 
-In theory i could acchive that with some logic for the Maker; it reality i do have a stupid issue: the sensor needs to be polled.  A better solution is needed. 
+In theory i could acchive that with some logic for the Maker; it reality i do have a stupid issue: [the sensor needs to be polled](https://github.com/openhab/openhab1-addons/issues/4967).  A better solution was needed. 
 ![picture alt](http://i.imgur.com/XiI62Mq.jpg "Wemos with Relais")
 
 ## Hardware##
