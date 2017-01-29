@@ -1,6 +1,6 @@
-#Openhab Integration to Hoermann Garage door Opener#
+#Openhab Integration to Hoermann Garage Door Opener#
 
-I'm a proud owner of a Gararage with a electric Door powered by a [ProMatic](http://www.hoermann.de/fileadmin/_country/dok/ProMatic_3.pdf) opener from hoermann. The device can be used with external switch, but only as a open-->stop-->close-->stop toggle button. My first try to integrate this to my home automation was a [Wemo Maker](http://www.belkin.com/us/p/F7C043/) and an additional reed contact to check if the door is closed or opened.
+I'm a proud owner of a gararage with a electric door powered by a [ProMatic](http://www.hoermann.de/fileadmin/_country/dok/ProMatic_3.pdf) opener from hoermann. The device can be used with external switch, but only as a open-->stop-->close-->stop toggle button. My first try to integrate this to my home automation was a [Wemo Maker](http://www.belkin.com/us/p/F7C043/) and an additional reed contact to check if the door is closed or opened.
 
 With the Wemos app this solution is fairly good. For integration into a home automation i do have one additional requirement: I want to have specific buttons for opening and closing. 
 
@@ -30,7 +30,8 @@ RETRY=Neuer Schliessversuch
 ERROR=Fehler Torsteuerung
 CLOSED=Tor Geschlossen
 OPENING=Tor Öffnet
-DOCLOSE=Sende Schliessen```
+DOCLOSE=Sende Schliessen
+```
 
 Sitemap
 ```
