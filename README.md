@@ -11,7 +11,8 @@ In theory i could acchive that with some logic for the Maker; it reality i do ha
 * [Wemos D1 mini esp8266 dev board](https://de.aliexpress.com/item/ESP8266-ESP-12-USB-WeMos-D1-Mini-WIFI-Entwicklungsboard-D1-Mini-NodeMCU-Lua-IOT-Basis-Auf/32674463823.html)
 * [Relais Shield](https://de.aliexpress.com/item/NEW-Relay-Shield-WeMos-D1-Mini-ESP8266-Development-Board/32703527015.html)
 * IP54 Housing form Hardware Store
-* 3d printed holde
+* 3d printed holder
+
 The Hoermann Switch is nonnected to the closing contact of the relais, the reed contact between D3 and GND.
 
 ## OpenHAB config ##
