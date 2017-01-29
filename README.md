@@ -15,6 +15,12 @@ In theory i could acchive that with some logic for the Maker; it reality i do ha
 
 The Hoermann Switch is nonnected to the closing contact of the relais, the reed contact between D3 and GND.
 
+## Software ##
+
+The actual formware for the wemos can be found [here](https://github.com/kohlsalem/GARAGE/blob/master/src/GARAGE.cpp). The "rest" of the files are actually aretefacts form PlatformIO. Arduino IDE would do too.
+
+The Firmwre is equipped with OTA update.
+
 ## OpenHAB config ##
 
 Item (http binding)
