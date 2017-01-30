@@ -21,6 +21,13 @@ The actual formware for the wemos can be found [here](https://github.com/kohlsal
 
 The Firmwre is equipped with OTA update.
 
+## The Logic behind ##
+The Firmware implements a Status Network to compile the information from the reed contact with the assumption about what the door is doing. This quite simple task can become nasty:
+
+![picture alt](http://i.imgur.com/m9ovhJ8.png "Status Network")
+
+The status is maintained in the firmware and updated into a openhab http item via REST call. Triggers to open/close come vrom the outside via url calls as well.
+
 ## OpenHAB config ##
 
 Item (http binding)
