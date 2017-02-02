@@ -19,7 +19,7 @@ ESP8266WebServer server(80);
 const char* openhab_host = "192.168.178.38";
 
 // Door runs for 20 seconds
-#define RUN_TIMEOUT 20000
+#define RUN_TIMEOUT 23000
 
 #define STATE_OPEN 2
 #define STATE_CLOSING 3
@@ -33,9 +33,11 @@ unsigned long stateChagedTime = millis();
 int currentSensor = HIGH; //initialoze to open. If it is actually closed on startup, it will update the state directly
 
 void pressButton(){
+  digitalWrite(LED_BUILTIN, LOW);
   digitalWrite(RELAIS,HIGH);
   delay(300);
   digitalWrite(RELAIS,LOW);
+  digitalWrite(LED_BUILTIN, HIGH);
 }
 
 
@@ -71,7 +73,6 @@ void updateState(int newState){
   client.print("Host: ");
   client.println(openhab_host);
   client.println("Connection: close");
-  //client.println("Content-Type: application/x-www-form-urlencoded");
   client.println("Content-Type: text/plain");
   client.println("Content-Length: "+vlength+"\r\n");
   client.print(value);
@@ -182,7 +183,7 @@ void setup() {
   pinMode(CONTACT, INPUT_PULLUP );
   WiFiManager wifiManager;
 
-
+  digitalWrite(LED_BUILTIN, LOW);
  //fetches ssid and pass from eeprom and tries to connect
  //if it does not connect it starts an access point with the specified name
  //here  "GARAGE"
@@ -192,10 +193,12 @@ void setup() {
 
  // if wlan fails we sit and wait the watchdog ;-)
  while (WiFi.status() != WL_CONNECTED) {
-
+   delay(150);
+   digitalWrite(LED_BUILTIN, HIGH);
+   delay(150);
+   digitalWrite(LED_BUILTIN, LOW);
  }
-
-
+ digitalWrite(LED_BUILTIN, HIGH);
  // initialize OTA update
  // in case, debug output can be placed in the stubs
  ArduinoOTA.setHostname("GARAGE");
