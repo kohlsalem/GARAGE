@@ -184,11 +184,21 @@ void setup() {
   WiFiManager wifiManager;
 
   digitalWrite(LED_BUILTIN, LOW);
+  
+ // Set configuration portal time out  - for 3 mins ( enough?)
+  wifiManager.setConfigPortalTimeout(180);
  //fetches ssid and pass from eeprom and tries to connect
  //if it does not connect it starts an access point with the specified name
  //here  "GARAGE"
  //and goes into a blocking loop awaiting configuration
- wifiManager.autoConnect("GARAGE");
+  if(!wifiManager.autoConnect("GARAGE")) {
+    //if it is not able to connect - restart it and try again :)
+    Serial.println("failed to connect and hit timeout");
+    delay(3000);
+    //reset and try again, or maybe put it to deep sleep
+    ESP.reset();
+    delay(5000);
+  } 
  //WiFi.begin(ssid, password);
 
  // if wlan fails we sit and wait the watchdog ;-)
