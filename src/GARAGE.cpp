@@ -86,6 +86,8 @@ void doOpen(){
  if( currentState == STATE_CLOSED){
    // the state update should come form the sensor
    pressButton();
+ } else if( currentState == STATE_OPEN){
+   updateState( STATE_OPEN );
  }
 }
 
@@ -97,7 +99,10 @@ void doClose(){
 
     updateState(STATE_CLOSING);
     pressButton();
+ } else if( currentState == STATE_CLOSED){
+   updateState( STATE_CLOSED );
  }
+
 }
 
 void loop() {
@@ -184,7 +189,7 @@ void setup() {
   WiFiManager wifiManager;
 
   digitalWrite(LED_BUILTIN, LOW);
-  
+
  // Set configuration portal time out  - for 3 mins ( enough?)
   wifiManager.setConfigPortalTimeout(180);
  //fetches ssid and pass from eeprom and tries to connect
@@ -198,7 +203,7 @@ void setup() {
     //reset and try again, or maybe put it to deep sleep
     ESP.reset();
     delay(5000);
-  } 
+  }
  //WiFi.begin(ssid, password);
 
  // if wlan fails we sit and wait the watchdog ;-)
