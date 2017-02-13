@@ -19,7 +19,7 @@ ESP8266WebServer server(80);
 const char* openhab_host = "192.168.178.38";
 
 // Door runs for 20 seconds
-#define RUN_TIMEOUT 23000
+#define RUN_TIMEOUT 24000
 
 #define STATE_OPEN 2
 #define STATE_CLOSING 3
